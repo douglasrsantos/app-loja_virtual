@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "311390421788",
+    "project_id": "lojaflutter-7def8",
+    "storage_bucket": "lojaflutter-7def8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:311390421788:android:af5a7b455ab597187f30d9",
+        "android_client_info": {
+          "package_name": "br.com.systems.doodge.loja_virtual"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "311390421788-v5bha5a5itokvmi0ofvta0ivfgke45g2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASPU2Cc-cQYKZmKPKxPAInnWkAyn968zk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "311390421788-v5bha5a5itokvmi0ofvta0ivfgke45g2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
