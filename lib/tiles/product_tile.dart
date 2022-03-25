@@ -24,7 +24,7 @@ class ProductTile extends StatelessWidget {
                   AspectRatio(
                     aspectRatio: 0.8,
                     child: Image.network(
-                      product.images[0],
+                      product.images![0],
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -34,7 +34,7 @@ class ProductTile extends StatelessWidget {
                       child: Column(
                         children: <Widget>[
                           Text(
-                            product.title,
+                            product.title!,
                             style: const TextStyle(
                               fontWeight: FontWeight.w500,
                             ),
@@ -58,7 +58,7 @@ class ProductTile extends StatelessWidget {
             Flexible(
               flex: 1,
               child: Image.network(
-                product.images[0],
+                product.images![0],
                 fit: BoxFit.cover,
                 height: 250,
               ),
@@ -71,7 +71,7 @@ class ProductTile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      product.title,
+                      product.title!,
                       style: const TextStyle(
                         fontWeight: FontWeight.w500,
                       ),

@@ -11,7 +11,7 @@ class UserModel extends Model {
   User? firebaseUser;
   Map<String, dynamic> userData = Map();
 
-  static UserModel ofUser(BuildContext context) =>
+  static UserModel of(BuildContext context) =>
       ScopedModel.of<UserModel>(context);
 
   @override

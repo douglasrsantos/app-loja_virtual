@@ -1,6 +1,12 @@
 import 'package:carousel_nullsafety/carousel_nullsafety.dart';
 import 'package:flutter/material.dart';
+import 'package:loja_virtual/datas/cart_product.dart';
 import 'package:loja_virtual/datas/product_data.dart';
+import 'package:loja_virtual/models/cart_model.dart';
+import 'package:loja_virtual/models/user_model.dart';
+import 'package:loja_virtual/screens/login_screen.dart';
+
+import 'cart_screen.dart';
 
 class ProductScreen extends StatefulWidget {
   const ProductScreen(this.product, {Key? key}) : super(key: key);
@@ -24,7 +30,7 @@ class _ProductScreenState extends State<ProductScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(product.title),
+        title: Text(product.title!),
         centerTitle: true,
       ),
       body: ListView(
@@ -32,7 +38,7 @@ class _ProductScreenState extends State<ProductScreen> {
           AspectRatio(
             aspectRatio: 0.9,
             child: Carousel(
-              images: product.images.map((url) {
+              images: product.images!.map((url) {
                 return NetworkImage(url);
               }).toList(),
               dotSize: 6,
@@ -48,7 +54,7 @@ class _ProductScreenState extends State<ProductScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Text(
-                  product.title,
+                  product.title!,
                   style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w500,
@@ -84,7 +90,7 @@ class _ProductScreenState extends State<ProductScreen> {
                       mainAxisSpacing: 8,
                       childAspectRatio: 0.5,
                     ),
-                    children: product.sizes.map((s) {
+                    children: product.sizes!.map((s) {
                       return GestureDetector(
                         onTap: () {
                           setState(() {
@@ -113,10 +119,32 @@ class _ProductScreenState extends State<ProductScreen> {
                 SizedBox(
                   height: 44,
                   child: RaisedButton(
-                    onPressed: size != null ? () {} : null,
-                    child: const Text(
-                      'Adicionar ao Carrinho',
-                      style: TextStyle(
+                    onPressed: size != null ?
+                        () {
+                          //adicionar ao carrinho
+                          if(UserModel.of(context).isLoggedIn()){
+
+                            CartProduct cartProduct = CartProduct();
+                            cartProduct.size = size;
+                            cartProduct.quantity = 1;
+                            cartProduct.pid = product.id;
+                            cartProduct.category = product.category;
+
+                            CartModel.of(context).addCartItem(cartProduct);
+
+                            Navigator.of(context).push(
+                                MaterialPageRoute(builder: (context)=>CartScreen()));
+                          } else {
+                            //encaminha para fazer login
+                            Navigator.of(context).push(
+                              MaterialPageRoute(builder: (context)=>LoginScreen())
+                            );
+                          }
+                        } : null,
+                    child: Text(
+                      UserModel.of(context).isLoggedIn() ? 'Adicionar ao Carrinho'
+                      : 'Entre Para Comprar',
+                      style: const TextStyle(
                         fontSize: 18,
                       ),
                     ),
@@ -135,7 +163,7 @@ class _ProductScreenState extends State<ProductScreen> {
                   ),
                 ),
                 Text(
-                  product.description,
+                  product.description!,
                   style: const TextStyle(
                     fontSize: 16,
                   ),
