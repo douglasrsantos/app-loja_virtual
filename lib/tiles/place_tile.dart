@@ -53,9 +53,11 @@ class PlaceTile extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                launch(
-                    'https://www.google.com/maps/search/?api=1&query=${snapshot["lat"]},'
-                    '${snapshot["long"]}');
+                launchUrl(
+                  Uri.parse(
+                      'https://www.google.com/maps/search/?api=1&query=${snapshot["lat"]},'
+                      '${snapshot["long"]}'),
+                );
               },
             ),
             TextButton(
@@ -66,7 +68,7 @@ class PlaceTile extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                launch('tel: ${snapshot["phone"]}');
+                launchUrl(Uri.parse('tel: ${snapshot["phone"]}'));
               },
             ),
           ]),

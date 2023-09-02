@@ -35,8 +35,8 @@ class UserModel extends Model {
     _auth!
         .createUserWithEmailAndPassword(
         email: userData!["email"], password: pass!)
-        .then((UserCredential) async {
-      firebaseUser = UserCredential.user;
+        .then((userCredential) async {
+      firebaseUser = userCredential.user;
 
       await _saveUserData(userData);
 
@@ -62,8 +62,8 @@ class UserModel extends Model {
 
     _auth!
         .signInWithEmailAndPassword(email: email!, password: pass!)
-        .then((UserCredential) async {
-      firebaseUser = UserCredential.user;
+        .then((userCredential) async {
+      firebaseUser = userCredential.user;
 
       await _loadCurrentUser();
 
@@ -102,7 +102,7 @@ class UserModel extends Model {
   }
 
   Future<void> _loadCurrentUser() async {
-    if (firebaseUser == null) firebaseUser = await _auth!.currentUser;
+    firebaseUser ??= _auth?.currentUser;
     if (firebaseUser != null) {
       if (userData["name"] == null) {
         DocumentSnapshot docUser = await FirebaseFirestore.instance

@@ -14,13 +14,13 @@ class ProductScreen extends StatefulWidget {
   final ProductData product;
 
   @override
-  State<ProductScreen> createState() => _ProductScreenState(product);
+  State<ProductScreen> createState() => _ProductScreenState(/*product*/);
 }
 
 class _ProductScreenState extends State<ProductScreen> {
-  final ProductData product;
+  // final ProductData product;
 
-  _ProductScreenState(this.product);
+  // _ProductScreenState(this.product);
 
   String? size;
 
@@ -30,16 +30,16 @@ class _ProductScreenState extends State<ProductScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(product.title!),
+        title: Text(widget.product.title ?? ''),
         centerTitle: true,
       ),
       body: ListView(
         children: <Widget>[
           AspectRatio(
-            aspectRatio: 0.9,
+            aspectRatio: 1.5,
             child: InfiniteCarousel.builder(
-              itemCount: product.images!.length,
-              itemExtent: 120,
+              itemCount: widget.product.images?.length ?? 0,
+              itemExtent: 300,
               center: true,
               anchor: 0.0,
               velocityFactor: 0.2,
@@ -47,7 +47,7 @@ class _ProductScreenState extends State<ProductScreen> {
               axisDirection: Axis.horizontal,
               loop: true,
               itemBuilder: (context, itemIndex, realIndex) {
-                final img = product.images![itemIndex];
+                final img = widget.product.images?[itemIndex];
                 return Image.network(img);
               },
             ),
@@ -58,7 +58,7 @@ class _ProductScreenState extends State<ProductScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Text(
-                  product.title!,
+                  widget.product.title ?? '',
                   style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w500,
@@ -66,7 +66,7 @@ class _ProductScreenState extends State<ProductScreen> {
                   maxLines: 3,
                 ),
                 Text(
-                  'R\$ ${product.price.toStringAsFixed(2)}',
+                  'R\$ ${widget.product.price.toStringAsFixed(2)}',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -94,7 +94,7 @@ class _ProductScreenState extends State<ProductScreen> {
                       mainAxisSpacing: 8,
                       childAspectRatio: 0.5,
                     ),
-                    children: product.sizes!.map((s) {
+                    children: widget.product.sizes!.map((s) {
                       return GestureDetector(
                         onTap: () {
                           setState(() {
@@ -130,9 +130,9 @@ class _ProductScreenState extends State<ProductScreen> {
                               CartProduct cartProduct = CartProduct();
                               cartProduct.size = size;
                               cartProduct.quantity = 1;
-                              cartProduct.pid = product.id;
-                              cartProduct.category = product.category;
-                              cartProduct.productData = product;
+                              cartProduct.pid = widget.product.id;
+                              cartProduct.category = widget.product.category;
+                              cartProduct.productData = widget.product;
 
                               CartModel.of(context).addCartItem(cartProduct);
 
@@ -170,7 +170,7 @@ class _ProductScreenState extends State<ProductScreen> {
                   ),
                 ),
                 Text(
-                  product.description!,
+                  widget.product.description ?? '',
                   style: const TextStyle(
                     fontSize: 16,
                   ),

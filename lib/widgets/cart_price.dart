@@ -85,7 +85,7 @@ class CartPrice extends StatelessWidget {
                 child: const Text(
                   'Finalizar Pedido',
                   style: TextStyle(
-                    color: Colors.blue,
+                    color: Colors.white,
                   ),
                 ),
                 style: ElevatedButton.styleFrom(
