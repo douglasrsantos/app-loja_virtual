@@ -25,7 +25,7 @@ class PlaceTile extends StatelessWidget {
             ),
           ),
           Container(
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -44,28 +44,32 @@ class PlaceTile extends StatelessWidget {
               ],
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              FlatButton(
-                child: Text('Ver no Mapa'),
-                textColor: Colors.blue,
-                padding: EdgeInsets.zero,
-                onPressed: (){
-                  launch('https://www.google.com/maps/search/?api=1&query=${snapshot["lat"]},'
-                      '${snapshot["long"]}');
-                },
+          Row(mainAxisAlignment: MainAxisAlignment.end, children: <Widget>[
+            TextButton(
+              child: const Text(
+                'Ver no Mapa',
+                style: TextStyle(
+                  color: Colors.blue,
+                ),
               ),
-              FlatButton(
-                child: Text('Ligar'),
-                textColor: Colors.blue,
-                padding: EdgeInsets.zero,
-                onPressed: (){
-                  launch('tel: ${snapshot["phone"]}');
-                },
+              onPressed: () {
+                launch(
+                    'https://www.google.com/maps/search/?api=1&query=${snapshot["lat"]},'
+                    '${snapshot["long"]}');
+              },
+            ),
+            TextButton(
+              child: const Text(
+                'Ligar',
+                style: TextStyle(
+                  color: Colors.blue,
+                ),
               ),
-            ]
-          ),
+              onPressed: () {
+                launch('tel: ${snapshot["phone"]}');
+              },
+            ),
+          ]),
         ],
       ),
     );

@@ -5,17 +5,17 @@ import 'package:scoped_model/scoped_model.dart';
 class CartPrice extends StatelessWidget {
   final VoidCallback buy;
 
-  CartPrice(this.buy, {Key? key}) : super(key: key);
+  const CartPrice(this.buy, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.symmetric(
+      margin: const EdgeInsets.symmetric(
         horizontal: 8,
         vertical: 4,
       ),
       child: Container(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child:
             ScopedModelDescendant<CartModel>(builder: (context, child, model) {
           double price = model.getProductsPrice();
@@ -25,47 +25,47 @@ class CartPrice extends StatelessWidget {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Text(
+              const Text(
                 'Resumo do Pedido',
                 textAlign: TextAlign.start,
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 12,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text('Subtotal'),
+                  const Text('Subtotal'),
                   Text('R\$ ${price.toStringAsFixed(2)}'),
                 ],
               ),
-              Divider(),
+              const Divider(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text('Desconto'),
+                  const Text('Desconto'),
                   Text('R\$ ${discount.toStringAsFixed(2)}'),
                 ],
               ),
-              Divider(),
+              const Divider(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text('Entrega'),
+                  const Text('Entrega'),
                   Text('R\$ ${ship.toStringAsFixed(2)}'),
                 ],
               ),
-              Divider(),
-              SizedBox(
+              const Divider(),
+              const SizedBox(
                 height: 12,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text(
+                  const Text(
                     'Total',
                     style: TextStyle(fontWeight: FontWeight.w500),
                   ),
@@ -78,13 +78,19 @@ class CartPrice extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 12,
               ),
-              RaisedButton(
-                child: Text('Finalizar Pedido'),
-                textColor: Colors.white,
-                color: Theme.of(context).primaryColor,
+              ElevatedButton(
+                child: const Text(
+                  'Finalizar Pedido',
+                  style: TextStyle(
+                    color: Colors.blue,
+                  ),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Theme.of(context).primaryColor,
+                ),
                 onPressed: buy,
               ),
             ],

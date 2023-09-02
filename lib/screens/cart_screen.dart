@@ -27,7 +27,7 @@ class CartScreen extends StatelessWidget {
               builder: (context, child, model) {
                 int p = model.products.length;
                 return Text(
-                  '${p ?? 0} ${p == 1 ? 'ITEM' : 'ITENS'}',
+                  '$p ${p == 1 ? 'ITEM' : 'ITENS'}',
                   style: const TextStyle(fontSize: 17),
                 );
               },
@@ -63,21 +63,22 @@ class CartScreen extends StatelessWidget {
                 const SizedBox(
                   height: 16,
                 ),
-                RaisedButton(
+                ElevatedButton(
                     child: const Text(
                       'Entrar',
-                      style: TextStyle(fontSize: 18),
+                      style: TextStyle(fontSize: 18, color: Colors.white),
                     ),
-                    textColor: Colors.white,
-                    color: Theme.of(context).primaryColor,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(context).primaryColor,
+                    ),
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => LoginScreen()));
+                          builder: (context) => const LoginScreen()));
                     })
               ],
             ),
           );
-        } else if (model.products == null || model.products.length == 0) {
+        } else if (model.products.isEmpty) {
           return const Center(
             child: Text(
               'Nenhum Produto no Carrinho!',
@@ -93,8 +94,8 @@ class CartScreen extends StatelessWidget {
                   return CartTile(product);
                 }).toList(),
               ),
-              DiscountCard(),
-              ShipCard(),
+              const DiscountCard(),
+              const ShipCard(),
               CartPrice(() async {
                 String? orderId = await model.finishOrder();
                 if (orderId != null) {

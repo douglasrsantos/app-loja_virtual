@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/datas/product_data.dart';
 import 'package:loja_virtual/models/cart_model.dart';
@@ -43,7 +42,7 @@ class CartTile extends StatelessWidget {
                   ),
                   Text(
                     'Tamanho: ${cartProduct.size}',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontWeight: FontWeight.w300,
                     ),
                   ),
@@ -59,10 +58,11 @@ class CartTile extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       IconButton(
-                        onPressed: cartProduct.quantity > 1 ?
-                          () {
-                            CartModel.of(context).decProduct(cartProduct);
-                          } : null,
+                        onPressed: cartProduct.quantity > 1
+                            ? () {
+                                CartModel.of(context).decProduct(cartProduct);
+                              }
+                            : null,
                         icon: const Icon(Icons.remove),
                         color: Theme.of(context).primaryColor,
                       ),
@@ -76,10 +76,14 @@ class CartTile extends StatelessWidget {
                         icon: const Icon(Icons.add),
                         color: Theme.of(context).primaryColor,
                       ),
-                      FlatButton(
-                        child: Text('Remover'),
-                        textColor: Colors.grey[500],
-                        onPressed: (){
+                      TextButton(
+                        child: Text(
+                          'Remover',
+                          style: TextStyle(
+                            color: Colors.grey[500],
+                          ),
+                        ),
+                        onPressed: () {
                           CartModel.of(context).removeCartItem(cartProduct);
                         },
                       )

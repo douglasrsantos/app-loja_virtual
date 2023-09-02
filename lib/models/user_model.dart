@@ -9,7 +9,7 @@ class UserModel extends Model {
   bool isLoading = false;
   FirebaseAuth? _auth; // = FirebaseAuth.instance;
   User? firebaseUser;
-  Map<String, dynamic> userData = Map();
+  Map<String, dynamic> userData = {};
 
   static UserModel of(BuildContext context) =>
       ScopedModel.of<UserModel>(context);
@@ -79,7 +79,7 @@ class UserModel extends Model {
 
   void signOut() async {
     await _auth!.signOut();
-    userData = Map();
+    userData = {};
     firebaseUser = null;
 
     notifyListeners();
@@ -93,7 +93,7 @@ class UserModel extends Model {
     return firebaseUser != null;
   }
 
-  Future<Null> _saveUserData(Map<String, dynamic> userData) async {
+  Future<void> _saveUserData(Map<String, dynamic> userData) async {
     this.userData = userData;
     await FirebaseFirestore.instance
         .collection("users")
@@ -101,7 +101,7 @@ class UserModel extends Model {
         .set(userData);
   }
 
-  Future<Null> _loadCurrentUser() async {
+  Future<void> _loadCurrentUser() async {
     if (firebaseUser == null) firebaseUser = await _auth!.currentUser;
     if (firebaseUser != null) {
       if (userData["name"] == null) {

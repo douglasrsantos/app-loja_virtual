@@ -21,7 +21,7 @@ class HomeScreen extends StatelessWidget {
         Scaffold(
           body: const HomeTab(),
           drawer: CustomDrawer(_pageController),
-          floatingActionButton: CartButton(),
+          floatingActionButton: const CartButton(),
         ),
         Scaffold(
           appBar: AppBar(
@@ -30,14 +30,14 @@ class HomeScreen extends StatelessWidget {
           ),
           drawer: CustomDrawer(_pageController),
           body: const ProductsTab(),
-          floatingActionButton: CartButton(),
+          floatingActionButton: const CartButton(),
         ),
         Scaffold(
           appBar: AppBar(
-            title: Text('Lojas'),
+            title: const Text('Lojas'),
             centerTitle: true,
           ),
-          body: PlacesTab(),
+          body: const PlacesTab(),
           drawer: CustomDrawer(_pageController),
         ),
         Scaffold(
@@ -45,7 +45,7 @@ class HomeScreen extends StatelessWidget {
             title: const Text('Meus Pedidos'),
             centerTitle: true,
           ),
-          body: OrdersTab(),
+          body: const OrdersTab(),
           drawer: CustomDrawer(_pageController),
         ),
       ],

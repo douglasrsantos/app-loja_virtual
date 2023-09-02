@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/models/user_model.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 import '../datas/cart_product.dart';
@@ -107,7 +106,7 @@ class CartModel extends Model {
   }
 
   Future<String?> finishOrder() async {
-    if (products.length == 0) {
+    if (products.isEmpty) {
       return null;
     }
 

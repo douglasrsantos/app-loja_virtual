@@ -12,10 +12,9 @@ class CartButton extends StatelessWidget {
         Icons.shopping_cart,
         color: Colors.white,
       ),
-      onPressed: (){
-        Navigator.of(context).push(
-          MaterialPageRoute(builder: (context)=>CartScreen())
-        );
+      onPressed: () {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => const CartScreen()));
       },
       backgroundColor: Theme.of(context).primaryColor,
     );

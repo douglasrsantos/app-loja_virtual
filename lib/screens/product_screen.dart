@@ -1,5 +1,5 @@
-import 'package:carousel_nullsafety/carousel_nullsafety.dart';
 import 'package:flutter/material.dart';
+import 'package:infinite_carousel/infinite_carousel.dart';
 import 'package:loja_virtual/datas/cart_product.dart';
 import 'package:loja_virtual/datas/product_data.dart';
 import 'package:loja_virtual/models/cart_model.dart';
@@ -37,15 +37,19 @@ class _ProductScreenState extends State<ProductScreen> {
         children: <Widget>[
           AspectRatio(
             aspectRatio: 0.9,
-            child: Carousel(
-              images: product.images!.map((url) {
-                return NetworkImage(url);
-              }).toList(),
-              dotSize: 6,
-              dotSpacing: 15,
-              dotBgColor: Colors.transparent,
-              dotColor: primaryColor,
-              autoplay: false,
+            child: InfiniteCarousel.builder(
+              itemCount: product.images!.length,
+              itemExtent: 120,
+              center: true,
+              anchor: 0.0,
+              velocityFactor: 0.2,
+              onIndexChanged: (index) {},
+              axisDirection: Axis.horizontal,
+              loop: true,
+              itemBuilder: (context, itemIndex, realIndex) {
+                final img = product.images![itemIndex];
+                return Image.network(img);
+              },
             ),
           ),
           Padding(
@@ -118,39 +122,41 @@ class _ProductScreenState extends State<ProductScreen> {
                 ),
                 SizedBox(
                   height: 44,
-                  child: RaisedButton(
-                    onPressed: size != null ?
-                        () {
-                          //adicionar ao carrinho
-                          if(UserModel.of(context).isLoggedIn()){
+                  child: ElevatedButton(
+                    onPressed: size != null
+                        ? () {
+                            //adicionar ao carrinho
+                            if (UserModel.of(context).isLoggedIn()) {
+                              CartProduct cartProduct = CartProduct();
+                              cartProduct.size = size;
+                              cartProduct.quantity = 1;
+                              cartProduct.pid = product.id;
+                              cartProduct.category = product.category;
+                              cartProduct.productData = product;
 
-                            CartProduct cartProduct = CartProduct();
-                            cartProduct.size = size;
-                            cartProduct.quantity = 1;
-                            cartProduct.pid = product.id;
-                            cartProduct.category = product.category;
-                            cartProduct.productData = product;
+                              CartModel.of(context).addCartItem(cartProduct);
 
-                            CartModel.of(context).addCartItem(cartProduct);
-
-                            Navigator.of(context).push(
-                                MaterialPageRoute(builder: (context)=>CartScreen()));
-                          } else {
-                            //encaminha para fazer login
-                            Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context)=>LoginScreen())
-                            );
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => const CartScreen()));
+                            } else {
+                              //encaminha para fazer login
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => const LoginScreen()));
+                            }
                           }
-                        } : null,
+                        : null,
                     child: Text(
-                      UserModel.of(context).isLoggedIn() ? 'Adicionar ao Carrinho'
-                      : 'Entre Para Comprar',
+                      UserModel.of(context).isLoggedIn()
+                          ? 'Adicionar ao Carrinho'
+                          : 'Entre Para Comprar',
                       style: const TextStyle(
                         fontSize: 18,
+                        color: Colors.white,
                       ),
                     ),
-                    color: primaryColor,
-                    textColor: Colors.white,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: primaryColor,
+                    ),
                   ),
                 ),
                 const SizedBox(

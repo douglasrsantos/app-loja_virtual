@@ -10,29 +10,27 @@ class OrdersTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    if(UserModel.of(context).isLoggedIn()){
-
+    if (UserModel.of(context).isLoggedIn()) {
       String uid = UserModel.of(context).firebaseUser!.uid;
 
       return FutureBuilder<QuerySnapshot>(
-        future: FirebaseFirestore.instance
-          .collection("orders")
-          .get(),
-        builder: (context, snapshot){
-          if(!snapshot.hasData){
-            return Center(
+        future: FirebaseFirestore.instance.collection("orders").get(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return const Center(
               child: CircularProgressIndicator(),
             );
           } else {
             return ListView(
-              children: snapshot.data!.docs.map((doc) => OrderTile(doc.id)).toList()
-                .reversed.toList(),
+              children: snapshot.data!.docs
+                  .map((doc) => OrderTile(doc.id))
+                  .toList()
+                  .reversed
+                  .toList(),
             );
           }
         },
       );
-
     } else {
       return Container(
         padding: const EdgeInsets.all(16),
@@ -56,16 +54,17 @@ class OrdersTab extends StatelessWidget {
             const SizedBox(
               height: 16,
             ),
-            RaisedButton(
+            ElevatedButton(
                 child: const Text(
                   'Entrar',
-                  style: TextStyle(fontSize: 18),
+                  style: TextStyle(fontSize: 18, color: Colors.white),
                 ),
-                textColor: Colors.white,
-                color: Theme.of(context).primaryColor,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Theme.of(context).primaryColor,
+                ),
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => LoginScreen()));
+                      builder: (context) => const LoginScreen()));
                 })
           ],
         ),

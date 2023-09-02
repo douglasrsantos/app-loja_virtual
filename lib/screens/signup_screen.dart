@@ -23,7 +23,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: Text('Criar Conta'),
+        title: const Text('Criar Conta'),
         centerTitle: true,
       ),
       body: ScopedModelDescendant<UserModel>(builder: (context, child, model) {
@@ -45,8 +45,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 validator: (text) {
                   if (text != null) {
                     if (text.isEmpty) return 'Nome inválido';
-                  } else
+                  } else {
                     return 'Nome inválido';
+                  }
+                  return null;
                 },
               ),
               const SizedBox(
@@ -60,10 +62,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 keyboardType: TextInputType.emailAddress,
                 validator: (text) {
                   if (text != null) {
-                    if (text.isEmpty || !text.contains('@'))
+                    if (text.isEmpty || !text.contains('@')) {
                       return 'E-mail inválido';
-                  } else
+                    }
+                  } else {
                     return 'E-mail inválido';
+                  }
+                  return null;
                 },
               ),
               const SizedBox(
@@ -77,10 +82,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 obscureText: true,
                 validator: (text) {
                   if (text != null) {
-                    if (text.isEmpty || text.length < 6)
+                    if (text.isEmpty || text.length < 6) {
                       return 'Senha inválida!';
-                  } else
+                    }
+                  } else {
                     return 'Senha inválida!';
+                  }
+                  return null;
                 },
               ),
               const SizedBox(
@@ -94,22 +102,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 validator: (text) {
                   if (text != null) {
                     if (text.isEmpty) return 'Endereço inválido!';
-                  } else
+                  } else {
                     return 'Endereço inválido!';
+                  }
+                  return null;
                 },
               ),
               const SizedBox(
                 height: 16,
               ),
-              RaisedButton(
+              ElevatedButton(
                 child: const Text(
                   'Criar Conta',
                   style: TextStyle(
                     fontSize: 18,
+                    color: Colors.white,
                   ),
                 ),
-                textColor: Colors.white,
-                color: Theme.of(context).primaryColor,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Theme.of(context).primaryColor,
+                ),
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     Map<String, dynamic> userData = {
@@ -142,7 +154,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         duration: const Duration(seconds: 2),
       ),
     );
-    Future.delayed(const Duration(seconds: 2)).then((_){
+    Future.delayed(const Duration(seconds: 2)).then((_) {
       Navigator.of(context).pop();
     });
   }

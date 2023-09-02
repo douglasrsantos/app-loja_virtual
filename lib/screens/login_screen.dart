@@ -4,14 +4,13 @@ import 'package:loja_virtual/screens/signup_screen.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class LoginScreen extends StatefulWidget {
-  LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
   final _emailController = TextEditingController();
   final _passController = TextEditingController();
 
@@ -23,20 +22,19 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: Text('Entrar'),
+        title: const Text('Entrar'),
         centerTitle: true,
         actions: <Widget>[
-          FlatButton(
+          TextButton(
             child: const Text(
               'CRIAR CONTA',
               style: TextStyle(
                 fontSize: 15,
               ),
             ),
-            textColor: Colors.white,
             onPressed: () {
               Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => SignUpScreen()),
+                MaterialPageRoute(builder: (context) => const SignUpScreen()),
               );
             },
           )
@@ -62,10 +60,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   keyboardType: TextInputType.emailAddress,
                   validator: (text) {
                     if (text != null) {
-                      if (text.isEmpty || !text.contains('@'))
+                      if (text.isEmpty || !text.contains('@')) {
                         return 'E-mail inválido';
-                    } else
+                      }
+                    } else {
                       return 'E-mail inválido';
+                    }
+                    return null;
                   },
                 ),
                 const SizedBox(
@@ -79,20 +80,24 @@ class _LoginScreenState extends State<LoginScreen> {
                   obscureText: true,
                   validator: (text) {
                     if (text != null) {
-                      if (text.isEmpty || text.length < 6)
+                      if (text.isEmpty || text.length < 6) {
                         return 'Senha inválida!';
-                    } else
+                      }
+                    } else {
                       return 'Senha inválida!';
+                    }
+                    return null;
                   },
                 ),
                 Align(
                   alignment: Alignment.centerRight,
-                  child: FlatButton(
+                  child: TextButton(
                     onPressed: () {
-                      if(_emailController.text.isEmpty){
+                      if (_emailController.text.isEmpty) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
-                            content: Text('Insira seu e-mail para recuperação!'),
+                            content:
+                                Text('Insira seu e-mail para recuperação!'),
                             backgroundColor: Colors.redAccent,
                             duration: Duration(seconds: 2),
                           ),
@@ -112,21 +117,22 @@ class _LoginScreenState extends State<LoginScreen> {
                       'Esqueci minha senha',
                       textAlign: TextAlign.right,
                     ),
-                    padding: EdgeInsets.zero,
                   ),
                 ),
                 const SizedBox(
                   height: 16,
                 ),
-                RaisedButton(
+                ElevatedButton(
                   child: const Text(
                     'Entrar',
                     style: TextStyle(
                       fontSize: 18,
+                      color: Colors.white,
                     ),
                   ),
-                  textColor: Colors.white,
-                  color: Theme.of(context).primaryColor,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).primaryColor,
+                  ),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {}
 
